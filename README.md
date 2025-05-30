@@ -40,9 +40,9 @@ src/
 
 ## ✅ Requisitos
 
-- ☕ Java 8 ou superior  
-- 🐬 MySQL instalado e em execução  
-- 🔌 Driver JDBC do MySQL adicionado ao classpath do projeto
+-   Java 8 ou superior  
+-   MySQL instalado e em execução  
+-   Driver JDBC do MySQL adicionado ao classpath do projeto
 
 ---
 
