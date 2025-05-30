@@ -1,24 +1,28 @@
 package org.example;
-
-import java.util.Scanner;
+import org.example.Constantes.ConstantePessoas;
+import org.example.Controller.PessoasController;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        PessoaDAO pessoaDAO = new PessoaDAO();
+        PessoasController pessoasController = new PessoasController();
+        int opcao = 0;
 
-        System.out.println("Digite o nome:");
-        String nome = scanner.nextLine();
-
-        System.out.println("Digite a data de nascimento (DD/MM/YYYY):");
-        String dataNascimento = scanner.nextLine();
-
-        System.out.println("Digite o endereço:");
-        String endereco = scanner.nextLine();
-
-        System.out.println("Digite o CPF:");
-        String cpf = scanner.nextLine();
-
-        pessoaDAO.inserirPessoa(nome, dataNascimento, endereco, cpf);
+        while (opcao != 5) {
+            try {
+                opcao = Integer.parseInt(JOptionPane.showInputDialog(ConstantePessoas.MENU));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida. Digite um número.");
+                continue;
+            }
+            switch (opcao) {
+                case 1: pessoasController.criarPessoa(); break;
+                case 2: pessoasController.listarPessoa(); break;
+                case 3: pessoasController.atualizarPessoa(); break;
+                case 4: pessoasController.deletarPessoa(); break;
+                case 5: JOptionPane.showMessageDialog(null, "Programa finalizado!"); break;
+                default: JOptionPane.showMessageDialog(null, "Opção inválida"); break;
+            }
+        }
     }
 }
