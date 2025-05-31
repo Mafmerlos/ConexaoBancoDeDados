@@ -4,18 +4,12 @@ import javax.swing.*;
 
 public class PessoasView {
     public PessoasModel solicitarDados() {
-        String nome = JOptionPane.showInputDialog("Digite o nome: ");
+        String  nome = JOptionPane.showInputDialog("Digite o nome: ");
         String cpf = JOptionPane.showInputDialog("Digite o CPF: ");
         String rg = JOptionPane.showInputDialog("Digite o RG: ");
         String endereco = JOptionPane.showInputDialog("Digite o endereço: ");
         String dataNascimento = JOptionPane.showInputDialog("Digite a data de nascimento (ANO-MES-DIA): ");
-        return PessoasModel.builder()
-                .nome(nome)
-                .cpf(cpf)
-                .rg(rg)
-                .endereco(endereco)
-                .dataNascimento(dataNascimento)
-                .build();
+        return new PessoasModel(nome,cpf,rg,endereco,dataNascimento);
     }
 
     public int solicitarIdParaDeletar() {
@@ -48,7 +42,9 @@ public class PessoasView {
         String dataNascimento = JOptionPane.showInputDialog("Data de nascimento atual: " + pessoasModelAtual.getDataNascimento()
                 + "\nNova data de nascimento (YYYY-MM-DD):", pessoasModelAtual.getDataNascimento());
 
-        return new PessoasModel(pessoasModelAtual.getId(), nome, cpf, rg, endereco, dataNascimento);
+        PessoasModel novaPessoa = new PessoasModel(nome,cpf,rg,endereco,dataNascimento);
+        novaPessoa.setId(pessoasModelAtual.getId());
+        return novaPessoa;
     }
 
     public void mostrarMensagem(String mensagem) {

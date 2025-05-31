@@ -1,19 +1,22 @@
 package org.example.Model;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@RequiredArgsConstructor
 public class PessoasModel {
-    private int id;
+    @NonNull
     private String nome;
+    @NonNull
     private String cpf;
+    @NonNull
     private String rg;
+    @NonNull
     private String endereco;
+    @NonNull
     private String dataNascimento;
+    private int id;
+
 }
