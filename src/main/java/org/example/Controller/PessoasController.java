@@ -5,6 +5,10 @@ import org.example.Model.PessoasModel;
 import org.example.View.PessoasView;
 
 import javax.swing.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.Period;
 import java.util.List;
 
 public class PessoasController {
@@ -12,7 +16,15 @@ public class PessoasController {
     private PessoasView pessoasView = new PessoasView();
 
     public void criarPessoa() {
-        PessoasModel pessoasModel = pessoasView.solicitarDados();
+        PessoasModel pessoasModel;
+        while (true) {
+            pessoasModel = pessoasView.solicitarDados();
+            if (validarDataNascimento(pessoasModel.getDataNascimento())) {
+                break;
+            } else {
+                pessoasView.mostrarMensagem("Data de nascimento inválida. Formato deve ser YYYY-MM-DD, não pode estar no futuro e a pessoa deve ter pelo menos 18 anos.");
+            }
+        }
         pessoasDAO.inserirPessoa(pessoasModel);
         JOptionPane.showMessageDialog(null, "Pessoa inserida com sucesso");
     }
@@ -30,7 +42,15 @@ public class PessoasController {
             return;
         }
 
-        PessoasModel pessoasModelAtualizado = pessoasView.solicitarDadosAtualizados(pessoasModelExistente);
+        PessoasModel pessoasModelAtualizado;
+        while (true) {
+            pessoasModelAtualizado = pessoasView.solicitarDadosAtualizados(pessoasModelExistente);
+            if (validarDataNascimento(pessoasModelAtualizado.getDataNascimento())) {
+                break;
+            } else {
+                pessoasView.mostrarMensagem("Data de nascimento inválida. Formato deve ser YYYY-MM-DD, não pode estar no futuro e a pessoa deve ter pelo menos 18 anos.");
+            }
+        }
         pessoasModelAtualizado.setId(id);
         pessoasDAO.atualizarPessoa(pessoasModelAtualizado);
         pessoasView.mostrarMensagem("Pessoa atualizada com sucesso!");
@@ -56,5 +76,21 @@ public class PessoasController {
                     .append("\n\n");
         }
         JOptionPane.showMessageDialog(null, sb.toString(), "Lista de Pessoas", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private boolean validarDataNascimento(String dataNascimento) {
+        try {
+            LocalDate data = LocalDate.parse(dataNascimento, DateTimeFormatter.ISO_LOCAL_DATE);
+            LocalDate hoje = LocalDate.now();
+
+            if (data.isAfter(hoje)) {
+                return false;
+            }
+
+            int idade = Period.between(data, hoje).getYears();
+            return idade >= 18;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
