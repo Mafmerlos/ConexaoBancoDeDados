@@ -48,10 +48,10 @@ src/
 
 ## 💡 Melhorias Futuras
 
-- 🔄 Implementação completa do CRUD  
-- 🔐 Validações de entrada de dados  
-- 🔑 Login de usuários  
-- 🌐 Implementar versão web usando **React** no frontend  
-- 🔧 Criar API REST com **Spring Boot** para integração com frontend moderno
+-  Implementação completa do CRUD  
+-  Validações de entrada de dados  
+-  Login de usuários  
+-  Implementar versão web usando **React** no frontend  
+-  Criar API REST com **Spring Boot** para integração com frontend moderno
 
 ---
